@@ -1,3 +1,4 @@
+import { memo } from "react";
 import { ILayoutProps } from "./Interface";
 import { Container } from "./LayoutStyle";
 
@@ -9,4 +10,4 @@ const Layout = (props: ILayoutProps) => {
     </main>
   );
 };
-export default Layout;
+export default memo(Layout);

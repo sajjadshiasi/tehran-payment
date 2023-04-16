@@ -4,6 +4,7 @@ import api from "@/api/service/coin";
 import { Box, Layout, List, SearchBar } from "@/component";
 import { useState } from "react";
 import { IAllCoinProps } from "@/types/res";
+import dynamic from "next/dynamic";
 
 
 export const getServerSideProps: GetServerSideProps = async () => {
@@ -43,6 +44,12 @@ const Home = ({
   const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setQuery(event.target.value);
   };
+  const DynamicLayout = dynamic(() => import('@/component/Layout'), {
+    ssr: false
+  })
+  const DynamicBox = dynamic(() => import('@/component/Box'), {
+    ssr: false
+  })
   return (
     <>
       <Head>
@@ -51,12 +58,12 @@ const Home = ({
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Layout data-testid='wrapper'>
+      <DynamicLayout>
         <SearchBar value={query} placeholder="Search" onChange={onChange} />
-        <Box>
+        <DynamicBox>
           <List item={data} />
-        </Box>
-      </Layout>
+        </DynamicBox>
+      </DynamicLayout>
     </>
   );
 }
